@@ -69,6 +69,8 @@
   border-collapse: collapse;
   width: 80%;
   margin: 20px auto;
+  color: #272727;
+  background-color: #d1caca;;
 }
 
 .process-table th,
