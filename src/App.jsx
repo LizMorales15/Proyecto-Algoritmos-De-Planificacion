@@ -17,7 +17,7 @@ function App() {
           marginRight: "1rem",
           marginLeft: "1rem"
         }}>SRT</button></Link>
-        <Link to="/srtf"><button>SRTF</button></Link>
+        <Link to="/srtf"><button>PRIORIDADES</button></Link>
       </div>
       <Routes>
         <Route path="/" element={<Fcfs />}></Route>
