@@ -3,7 +3,7 @@ import {FCFS} from "../algoritmos/fcfs.js";
 import ProcessAdder from "./processAdder.jsx";
 import {ProcessQueue} from "./processQueue.jsx";
 
-const Srtf = () => {
+const PRIORIDADES = () => {
   const [enabled, setEnabled] = useState(false);
   const [processes, setProcesses] = useState([]);
   const [scheduler, setScheduler] = useState(null);
@@ -103,7 +103,7 @@ const Srtf = () => {
       }}>
         <h2 style={{
           textAlign: "center"
-        }}>Algoritmo SRTF</h2>
+        }}>Algoritmo PRIORIDADES</h2>
         <button onClick={handleEnable} style={{
           display: enabled ? 'none' : 'block'
         }}>
@@ -118,4 +118,4 @@ const Srtf = () => {
   );
 };
 
-export default Srtf;
+export default PRIORIDADES;

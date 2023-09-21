@@ -2,7 +2,7 @@ import './App.css'
 import Fcfs from "./components/FCFS.jsx";
 import {Link, Route, Routes} from "react-router-dom";
 import SRT from "./components/SRT.jsx";
-import Srtf from "./components/SRTF.jsx";
+import PRIORIDADES from "./components/PRIORIDADES.jsx";
 
 
 
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Fcfs />}></Route>
         <Route path="/srt" element={<SRT />}></Route>
-        <Route path="/srtf" element={<Srtf />}></Route>
+        <Route path="/srtf" element={<PRIORIDADES />}></Route>
 
       </Routes>
     </>
