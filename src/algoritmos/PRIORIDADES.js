@@ -12,7 +12,7 @@ export class PRIORIDADES{
     schedule(){
         console.log('hola');
         // Sort the processes by priority
-        this.processes.sort((a));
+        this.processes.sort((a, b) => a.priority - b.priority);
 
         let currentTime = 0;
         let previousTR = 0;
