@@ -72,21 +72,21 @@ const ProcessAdder = ({setProcesses}) => {
         borderRadius: "4px",
       }}/>
       <label htmlFor="burstTime">Tiempo de ráfaga</label>
-      <input type="number" placeholder="Nombre del proceso..." name="burstTime" onChange={handleProcess} value={process.burstTime} min={0} style={{
+      <input type="number" placeholder="Tiempo de rafaga..." name="burstTime" onChange={handleProcess} value={process.burstTime} min={0} style={{
         marginBottom: "1rem",
         padding: "0.5rem 1rem",
         border: "1px solid #ccc",
         borderRadius: "4px",
       }}/>
       <label htmlFor="time">Tiempo de llegada</label>
-      <input type="number" placeholder="Nombre del proceso..." name="time" onChange={handleProcess} value={process.time} min={0} style={{
+      <input type="number" placeholder="Tiempo de llegada" name="time" onChange={handleProcess} value={process.time} min={0} style={{
         marginBottom: "1rem",
         padding: "0.5rem 1rem",
         border: "1px solid #ccc",
         borderRadius: "4px",
       }}/>
       <label htmlFor="priority">Prioridad</label>
-      <input type="number" placeholder="Nombre del proceso..." name="priority" onChange={handleProcess} value={process.priority} min={0} style={{
+      <input type="number" placeholder="Prioridad" name="priority" onChange={handleProcess} value={process.priority} min={0} style={{
         marginBottom: "1rem",
         padding: "0.5rem 1rem",
         border: "1px solid #ccc",

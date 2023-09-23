@@ -1,4 +1,4 @@
-import{useState} from 'react';
+import {useState} from 'react';
 import ProcessAdder from "./processAdder.jsx";
 import {ProcessQueue} from "./processQueue.jsx";
 import {SRT as srt} from "../algoritmos/SRT.js";
