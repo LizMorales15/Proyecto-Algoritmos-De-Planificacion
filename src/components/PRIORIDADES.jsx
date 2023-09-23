@@ -1,15 +1,15 @@
 import {useState} from 'react';
-import {FCFS} from "../algoritmos/fcfs.js";
+import {PRIORIDADES as prioridades} from '../algoritmos/PRIORIDADES.js';
 import ProcessAdder from "./processAdder.jsx";
 import {ProcessQueue} from "./processQueue.jsx";
 
-const PRIORIDADES = () => {
+const Prioridades = () => {
   const [enabled, setEnabled] = useState(false);
   const [processes, setProcesses] = useState([]);
   const [scheduler, setScheduler] = useState(null);
 
   const handleEnable = () => {
-    const newScheduler = new FCFS(processes);
+    const newScheduler = new prioridades(processes);
     newScheduler.schedule();
     setScheduler(newScheduler);
     setEnabled(prevState => !prevState);
@@ -118,4 +118,4 @@ const PRIORIDADES = () => {
   );
 };
 
-export default PRIORIDADES;
+export default Prioridades;

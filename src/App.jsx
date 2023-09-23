@@ -17,12 +17,12 @@ function App() {
           marginRight: "1rem",
           marginLeft: "1rem"
         }}>SRT</button></Link>
-        <Link to="/srtf"><button>PRIORIDADES</button></Link>
+        <Link to="/prioridades"><button>PRIORIDADES</button></Link>
       </div>
       <Routes>
         <Route path="/" element={<Fcfs />}></Route>
         <Route path="/srt" element={<SRT />}></Route>
-        <Route path="/srtf" element={<PRIORIDADES />}></Route>
+        <Route path="/prioridades" element={<PRIORIDADES />}></Route>
 
       </Routes>
     </>
