@@ -36,8 +36,27 @@ export class PRIORIDADES {
                     // If there are multiple processes with the same arrival time and priority, choose the one that arrived first
                     sameArrivalTimeAndPriorityProcesses.sort((a, b) => a.time - b.time);
                 }
+               
+                 // Ensure the properties are treated as numbers
+                currentProcess.burstTime = Number(currentProcess.burstTime);
+                currentProcess.time = Number(currentProcess.time);
+               // Calculate TE (waiting time) for each process
+                currentProcess.TE = currentTime - currentProcess.time;
+                if (currentProcess.TE < 0) {
+                    currentTime = currentProcess.time;
+                    currentProcess.TE = 0;
+                }
+
+                // Calculate TR (response time) for each process
+                currentProcess.TR = currentProcess.burstTime + previousTR;
+
+                // Calculate TP (completion time) for each process
+                currentProcess.TP = currentProcess.TE + currentProcess.burstTime;
+
+               
                 const chosenProcess = sameArrivalTimeAndPriorityProcesses[0];
 
+                
                 // Update the current time and previous TR
                 chosenProcess.TE = currentTime - chosenProcess.time;
                 if (chosenProcess.TE < 0) {
