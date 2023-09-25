@@ -115,7 +115,7 @@ const SRT = () => {
         <ProcessQueue processes={scheduler.queue} enabled={enabled}/>
         : null*/}
       {enabled && scheduler ?
-        <ProcessTimeline processes={scheduler.linechart}/>
+        <ProcessTimeline processes={scheduler.linechart} srtf={true}/>
         : null
       }
     </div>
