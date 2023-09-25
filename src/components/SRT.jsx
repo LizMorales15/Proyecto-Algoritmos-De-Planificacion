@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import ProcessAdder from "./processAdder.jsx";
 import {SRT as srt} from "../algoritmos/SRT.js";
-import {ProcessQueue} from "./processQueue.jsx";
 import ProcessTimeline from "./ProcessTImeline.jsx";
 
 const SRT = () => {
@@ -12,7 +11,6 @@ const SRT = () => {
   const handleEnable = () => {
     const newScheduler = new srt(processes);
     newScheduler.schedule();
-    console.log(newScheduler)
     setScheduler(newScheduler);
     setEnabled(prevState => !prevState);
   };
@@ -116,10 +114,10 @@ const SRT = () => {
       {/*enabled && scheduler ?
         <ProcessQueue processes={scheduler.queue} enabled={enabled}/>
         : null*/}
-      {/*enabled && scheduler ?
-        <ProcessTimeline processes={scheduler.queue}/>
+      {enabled && scheduler ?
+        <ProcessTimeline processes={scheduler.linechart}/>
         : null
-      */}
+      }
     </div>
   );
 };

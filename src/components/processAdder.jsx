@@ -103,14 +103,12 @@ const ProcessAdder = ({setProcesses}) => {
         border: "1px solid #ccc",
         borderRadius: "4px",
       }}/>
-      <div style={
-
-        {
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }
+      <div style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }
       }>
         <button onClick={addProcess} style={{
           marginBottom: "1rem",

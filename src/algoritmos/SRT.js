@@ -7,6 +7,7 @@ export class SRT {
     this.total_waiting_time = 0;
     this.total_response_time = 0;
     this.total_idle_time = 0;
+    this.linechart = [];
   }
 
   schedule() {
@@ -41,11 +42,13 @@ export class SRT {
       if (idx !== -1) {
         if (this.burst_remaining[idx] === this.processes[idx].burstTime) {
           this.processes[idx].startTime = current_time;
+
           this.total_idle_time += this.processes[idx].startTime - prev;
         }
         this.burst_remaining[idx] -= 1;
         current_time++;
         prev = current_time;
+        this.linechart.push(this.processes[idx]);
 
         if (this.burst_remaining[idx] === 0) {
           this.processes[idx].completionTime = current_time;
@@ -71,7 +74,9 @@ export class SRT {
     this.total_turnaround_time /= this.processes.length;
     this.total_waiting_time /= this.processes.length;
     this.total_response_time /= this.processes.length;
+    console.log(this.linechart)
 
     return this.processes; // return the updated processes
   }
+
 }
