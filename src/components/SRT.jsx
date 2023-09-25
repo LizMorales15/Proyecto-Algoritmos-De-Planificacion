@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import ProcessAdder from "./processAdder.jsx";
-import {ProcessQueue} from "./processQueue.jsx";
 import {SRT as srt} from "../algoritmos/SRT.js";
 
 const SRT = () => {
@@ -10,6 +9,7 @@ const SRT = () => {
 
   const handleEnable = () => {
     const newScheduler = new srt(processes);
+    console.log(newScheduler)
     newScheduler.schedule();
     setScheduler(newScheduler);
     setEnabled(prevState => !prevState);
@@ -23,7 +23,7 @@ const SRT = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <ProcessAdder setProcesses={setProcesses} />
+        <ProcessAdder setProcesses={setProcesses}/>
         {processes.length > 0 ? (
           <div>
             <h2>Procesos</h2>
@@ -40,7 +40,7 @@ const SRT = () => {
               {processes.map((process) => (
                 <tr
                   key={process.id}
-                  style={{ backgroundColor: process.color }}
+                  style={{backgroundColor: process.color}}
                 >
                   <td>{process.name}</td>
                   <td>{process.burstTime}</td>
@@ -66,7 +66,7 @@ const SRT = () => {
               </thead>
               <tbody>
               {scheduler.queue.map((process) => (
-                <tr key={process.id} style={{ backgroundColor: process.color }}>
+                <tr key={process.id} style={{backgroundColor: process.color}}>
                   <td>{process.name}</td>
                   <td>{process.TE}</td>
                   <td>{process.TR}</td>
@@ -111,10 +111,13 @@ const SRT = () => {
           Start
         </button>
       </div>
-      {enabled && scheduler ?
+      {/*enabled && scheduler ?
         <ProcessQueue processes={scheduler.queue} enabled={enabled}/>
         : null}
-
+      {enabled && scheduler ?
+        <ProcessTimeline processes={scheduler.queue}/>
+        : null
+      */}
     </div>
   );
 };

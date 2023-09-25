@@ -17,7 +17,7 @@ const ProcessAdder = ({setProcesses}) => {
     if (!validation) {
       return;
     }
-    setProcesses((processes) => [...processes, new Process(process.name, process.burstTime, process.time, process.priority)]);
+    setProcesses((processes) => [...processes, new Process(process.name, Number(process.burstTime), Number(process.time), Number(process.priority))]);
     setProcess({
       name: "",
       burstTime: 0,

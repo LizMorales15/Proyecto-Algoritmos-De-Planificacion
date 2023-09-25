@@ -6,6 +6,7 @@ function getRandomColor() {
   }
   return color;
 }
+
 let nextProcessId = 0;
 
 export class Process {
@@ -14,7 +15,10 @@ export class Process {
   burstTime;
   time;
   priority;
-  color
+  color;
+  remainingBurstTime;
+  waitingTime;
+
   constructor(name, burstTime, time, priority) {
     this.id = nextProcessId++;
     this.name = name;
@@ -22,7 +26,8 @@ export class Process {
     this.time = time;
     this.priority = priority;
     this.color = getRandomColor();
-
+    this.remainingBurstTime = burstTime;
+    this.waitingTime = 0;
   }
 }
 

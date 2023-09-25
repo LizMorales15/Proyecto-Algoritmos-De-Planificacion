@@ -2,6 +2,7 @@ import {useState} from 'react';
 import ProcessAdder from "./processAdder.jsx";
 import {ProcessQueue} from "./processQueue.jsx";
 import {FCFS} from "../algoritmos/fcfs.js";
+import ProcessTimeline from "./ProcessTImeline.jsx";
 
 const Fcfs = () => {
   const [enabled, setEnabled] = useState(false);
@@ -113,7 +114,10 @@ const Fcfs = () => {
       {enabled && scheduler ?
         <ProcessQueue processes={scheduler.queue} enabled={enabled}/>
         : null}
-
+      {enabled && scheduler ?
+        <ProcessTimeline processes={scheduler.queue} />
+        : null
+      }
     </div>
   );
 };

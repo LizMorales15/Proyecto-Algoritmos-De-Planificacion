@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {PRIORIDADES as prioridades} from '../algoritmos/PRIORIDADES.js';
 import ProcessAdder from "./processAdder.jsx";
 import {ProcessQueue} from "./processQueue.jsx";
+import ProcessTimeline from "./ProcessTImeline.jsx";
 
 const Prioridades = () => {
   const [enabled, setEnabled] = useState(false);
@@ -22,7 +23,7 @@ const Prioridades = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <ProcessAdder setProcesses={setProcesses} />
+        <ProcessAdder setProcesses={setProcesses}/>
         {processes.length > 0 ? (
           <div>
             <h2>Procesos</h2>
@@ -39,7 +40,7 @@ const Prioridades = () => {
               {processes.map((process) => (
                 <tr
                   key={process.id}
-                  style={{ backgroundColor: process.color }}
+                  style={{backgroundColor: process.color}}
                 >
                   <td>{process.name}</td>
                   <td>{process.burstTime}</td>
@@ -65,7 +66,7 @@ const Prioridades = () => {
               </thead>
               <tbody>
               {scheduler.queue.map((process) => (
-                <tr key={process.id} style={{ backgroundColor: process.color }}>
+                <tr key={process.id} style={{backgroundColor: process.color}}>
                   <td>{process.name}</td>
                   <td>{process.TE}</td>
                   <td>{process.TR}</td>
@@ -113,7 +114,10 @@ const Prioridades = () => {
       {enabled && scheduler ?
         <ProcessQueue processes={scheduler.queue} enabled={enabled}/>
         : null}
-
+      {enabled && scheduler ?
+        <ProcessTimeline processes={scheduler.queue}/>
+        : null
+      }
     </div>
   );
 };
