@@ -1,54 +1,58 @@
 export class SRT {
   processes;
   queue;
+  waitingQueue;
 
   constructor(processes) {
     this.processes = processes;
     this.queue = [];
+    this.waitingQueue = [];
   }
 
   schedule() {
-    // Sort the processes by their arrival time (time property)
-    this.processes.sort((a, b) => a.time - b.time);
-
     let currentTime = 0;
     let previousTR = 0;
 
-    while (this.processes.length > 0) {
-      // Choose the process with the smallest burst time
-      let shortestIndex = 0;
-      for (let i = 1; i < this.processes.length; i++) {
-        if (this.processes[i].burstTime < this.processes[shortestIndex].burstTime &&
-          this.processes[i].time <= currentTime) {
+    while (this.processes.length > 0 || this.waitingQueue.length > 0) {
+      // Check if there are new processes that have arrived
+      while (this.processes.length > 0 && this.processes[0].time <= currentTime) {
+        const newProcess = this.processes.shift();
+        newProcess.burstTime = Number(newProcess.burstTime);
+        newProcess.time = Number(newProcess.time);
+        this.waitingQueue.push(newProcess);
+      }
+
+      // Choose the process with the smallest remaining burst time
+      let shortestIndex = -1;
+      for (let i = 0; i < this.waitingQueue.length; i++) {
+        if (shortestIndex === -1 || this.waitingQueue[i].burstTime < this.waitingQueue[shortestIndex].burstTime) {
           shortestIndex = i;
         }
       }
 
-      let process = this.processes[shortestIndex];
-      // Make sure the properties are treated as numbers
-      process.burstTime = Number(process.burstTime);
-      process.time = Number(process.time);
+      if (shortestIndex !== -1) {
+        const process = this.waitingQueue[shortestIndex];
 
-      // Calculate TE (waiting time) for each process
-      process.TE = currentTime - process.time;
-      if (process.TE < 0) {
-        currentTime = process.time;
-        process.TE = 0;
+        // Calculate TE (waiting time) for each process
+        process.TE = currentTime - process.time;
+
+        // Calculate TR (response time) for each process
+        process.TR = process.burstTime + previousTR - process.time;
+
+        // Calculate TP (completion time) for each process
+        process.TP = process.TE + process.burstTime;
+
+        // Update the current time and previous TR
+        currentTime += process.burstTime;
+        previousTR = process.TR;
+
+        // Remove the process from the waiting queue and add it to the queue
+        this.waitingQueue.splice(shortestIndex, 1);
+        this.queue.push(process);
+      } else {
+        // If there are no processes in the waiting queue, increment the time
+        currentTime++;
       }
-
-      // Calculate TR (response time) for each process
-      process.TR = process.burstTime + previousTR;
-
-      // Calculate TP (completion time) for each process
-      process.TP = process.TE + process.burstTime;
-
-      // Update the current time and previous TR
-      currentTime += process.burstTime;
-      previousTR = process.TR;
-
-      // Remove the process from the array and add it to the queue
-      this.processes.splice(shortestIndex, 1);
-      this.queue.push(process);
     }
 
     // Calculate the average values for TE, TR, and TP
@@ -60,7 +64,21 @@ export class SRT {
     this.averageTE = averageTE;
     this.averageTR = averageTR;
     this.averageTP = averageTP;
+
+    // Display the results in the desired format
+    console.log('\tTE\tTR\tTP');
+    for (let process of this.queue) {
+      console.log(`${process.name}\t${process.TE}\t${process.TR}\t${process.TP}`);
+    }
+
+    console.log(`PROMEDIO\t${averageTE.toFixed(1)} u.t\t${averageTR.toFixed(1)} u.t\t${averageTP.toFixed(1)} u.t`);
   }
 
-
+  // Function to put a process in the waiting queue
+  putInWaitingQueue(process) {
+    process.burstTime = Number(process.burstTime);
+    process.time = Number(process.time);
+    this.waitingQueue.push(process);
+  }
 }
+
