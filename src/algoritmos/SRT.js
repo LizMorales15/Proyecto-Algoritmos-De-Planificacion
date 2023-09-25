@@ -19,25 +19,34 @@ export class SRT {
         const newProcess = this.processes.shift();
         newProcess.burstTime = Number(newProcess.burstTime);
         newProcess.time = Number(newProcess.time);
-        this.waitingQueue.push(newProcess);
+        this.putInWaitingQueue(newProcess);
       }
 
-      // Choose the process with the smallest remaining burst time
-      let shortestIndex = -1;
+      /// Choose the process with the highest priority and smallest remaining burst time
+      let highestPriorityIndex = -1;
       for (let i = 0; i < this.waitingQueue.length; i++) {
-        if (shortestIndex === -1 || this.waitingQueue[i].burstTime < this.waitingQueue[shortestIndex].burstTime) {
-          shortestIndex = i;
+        if (
+            highestPriorityIndex === -1 ||
+            this.waitingQueue[i].priority < this.waitingQueue[highestPriorityIndex].priority ||
+            (this.waitingQueue[i].priority === this.waitingQueue[highestPriorityIndex].priority &&
+                this.waitingQueue[i].burstTime < this.waitingQueue[highestPriorityIndex].burstTime)
+        ) {
+          highestPriorityIndex = i;
         }
       }
 
-      if (shortestIndex !== -1) {
-        const process = this.waitingQueue[shortestIndex];
+      if (highestPriorityIndex !== -1) {
+        const process = this.waitingQueue[highestPriorityIndex];
 
         // Calculate TE (waiting time) for each process
         process.TE = currentTime - process.time;
+        if (process.TE < 0) {
+          currentTime = process.time;
+          process.TE = 0;
+        }
 
         // Calculate TR (response time) for each process
-        process.TR = process.burstTime + previousTR - process.time;
+        process.TR = process.burstTime + previousTR;
 
         // Calculate TP (completion time) for each process
         process.TP = process.TE + process.burstTime;
@@ -47,7 +56,7 @@ export class SRT {
         previousTR = process.TR;
 
         // Remove the process from the waiting queue and add it to the queue
-        this.waitingQueue.splice(shortestIndex, 1);
+        this.waitingQueue.splice(highestPriorityIndex, 1);
         this.queue.push(process);
       } else {
         // If there are no processes in the waiting queue, increment the time
@@ -81,4 +90,3 @@ export class SRT {
     this.waitingQueue.push(process);
   }
 }
-
