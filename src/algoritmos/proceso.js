@@ -16,19 +16,27 @@ export class Process {
   time;
   priority;
   color;
-  remainingBurstTime;
   waitingTime;
+  arrivalTime;
+  startTime;
+  completionTime;
+  turnaroundTime;
+  responseTime;
 
   constructor(name, burstTime, time, priority) {
     this.id = nextProcessId++;
     this.name = name;
     this.burstTime = burstTime;
-    this.time = time;
+    this.time = time; // This can be considered as arrival_time
     this.priority = priority;
     this.color = getRandomColor();
-    this.remainingBurstTime = burstTime;
-    this.waitingTime = 0;
+    this.waitingTime = 0; // This can be considered as waiting_time
+
+    // Initialize the new fields
+    this.arrivalTime = this.time;
+    this.startTime = 0;
+    this.completionTime = 0;
+    this.turnaroundTime = 0; // completion_time - arrival_time
+    this.responseTime = 0; // start_time - arrival_time
   }
 }
-
-

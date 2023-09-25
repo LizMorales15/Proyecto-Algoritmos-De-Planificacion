@@ -12,6 +12,7 @@ const SRT = () => {
   const handleEnable = () => {
     const newScheduler = new srt(processes);
     newScheduler.schedule();
+    console.log(newScheduler)
     setScheduler(newScheduler);
     setEnabled(prevState => !prevState);
   };
@@ -66,12 +67,12 @@ const SRT = () => {
               </tr>
               </thead>
               <tbody>
-              {scheduler.queue.map((process) => (
+              {scheduler.processes.map((process) => (
                 <tr key={process.id} style={{backgroundColor: process.color}}>
                   <td>{process.name}</td>
-                  <td>{process.TE}</td>
-                  <td>{process.TR}</td>
-                  <td>{process.TP}</td>
+                  <td>{process.waitingTime}</td>
+                  <td>{process.completionTime}</td>
+                  <td>{process.turnaroundTime}</td>
                 </tr>
               ))}
               </tbody>
@@ -87,9 +88,9 @@ const SRT = () => {
               </thead>
               <tbody>
               <tr>
-                <td>{scheduler.averageTE.toFixed(1)} u.t</td>
-                <td>{scheduler.averageTR.toFixed(1)} u.t</td>
-                <td>{scheduler.averageTP.toFixed(1)} u.t</td>
+                <td>{scheduler.total_waiting_time.toFixed(1)} u.t</td>
+                <td>{scheduler.total_response_time.toFixed(1)} u.t</td>
+                <td>{scheduler.total_turnaround_time.toFixed(1)} u.t</td>
               </tr>
               </tbody>
             </table>
@@ -112,13 +113,13 @@ const SRT = () => {
           Start
         </button>
       </div>
-      {enabled && scheduler ?
+      {/*enabled && scheduler ?
         <ProcessQueue processes={scheduler.queue} enabled={enabled}/>
-        : null}
-      {enabled && scheduler ?
+        : null*/}
+      {/*enabled && scheduler ?
         <ProcessTimeline processes={scheduler.queue}/>
         : null
-      }
+      */}
     </div>
   );
 };
